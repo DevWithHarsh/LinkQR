@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #d9c6fd 0%, #d9c6fd 25%, #d9c6fd 50%, #d9c6fd 75%, #d9c6fd 100%);
+            background: linear-gradient(135deg, #ffeef8 0%, #ffd6e8 25%, #ffb8d9 50%, #ffa0cc 75%, #ff91c7 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,10 +25,10 @@
 
         @keyframes gradientShift {
             0%, 100% {
-                background: linear-gradient(135deg, #d9c6fd 0%, #ffd6e8 25%, #d9c6fd 50%, #ffa0cc 75%, #d9c6fd 100%);
+                background: linear-gradient(135deg, #ffeef8 0%, #ffd6e8 25%, #ffb8d9 50%, #ffa0cc 75%, #ff91c7 100%);
             }
             50% {
-                background: linear-gradient(135deg, #ffe0f5 0%, #d9c6fd 25%, #ffadd6 50%, #d9c6fd 75%, #ff7ab8 100%);
+                background: linear-gradient(135deg, #ffe0f5 0%, #ffcce5 25%, #ffadd6 50%, #ff8ec4 75%, #ff7ab8 100%);
             }
         }
 
@@ -220,6 +220,28 @@
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(1.2); }
         }
+
+        /* Confetti styles */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff69b4;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -295,14 +317,41 @@
     </div>
 
     <script>
+        function createConfetti() {
+            const colors = ['#ff69b4', '#ff1493', '#ffc0cb', '#ff91c7', '#d9c6fd', '#ffd700', '#ff6b9d'];
+            const confettiCount = 50;
+
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-20px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3500);
+                }, i * 30);
+            }
+        }
+
         function showPage(pageName) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
 
             if (pageName === 'gujarati') {
                 document.getElementById('gujarati-page').classList.add('active');
+                createConfetti();
             } else if (pageName === 'english') {
                 document.getElementById('english-page').classList.add('active');
+                createConfetti();
             } else if (pageName === 'selection') {
                 document.getElementById('selection-page').classList.add('active');
             }
