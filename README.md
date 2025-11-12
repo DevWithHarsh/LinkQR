@@ -1,2 +1,3 @@
 # LinkQR
-testing about link qr code to particular value
+
+Live link - https://evidenceofahigherdimension.vercel.app/
