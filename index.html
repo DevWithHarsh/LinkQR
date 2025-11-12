@@ -16,6 +16,7 @@
             font-family: 'Georgia', serif;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
@@ -294,14 +295,38 @@
                 opacity: 0;
             }
         }
+
         img {
             width: 80%;
             border-radius: 90%;
             height: auto;
             box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
         }
-        #english-content p{
+
+        #english-content p {
             font-size: 1.1rem;
+        }
+
+        #github {
+            position: fixed;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #777;
+            display: block;
+            z-index: 20;
+        }
+
+        #github a {
+            color: #ff69b4;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #github a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -322,7 +347,8 @@
             <h1>The Arrival of Blessings</h1>
             <h2>મંગળનું આગમનમ્</h2>
             <div class="decorative-line"></div>
-            <p style="font-size: 1rem; color: #888;">કૃપા કરીને તમારી ભાષા પસંદ કરો<br><br>Please select your language</p>
+            <p style="font-size: 1rem; color: #888;">કૃપા કરીને તમારી ભાષા પસંદ કરો<br><br>Please select your language
+            </p>
             <div class="language-buttons">
                 <button class="lang-btn gujarati-btn" onclick="showPage('gujarati')">
                     🌺 ગુજરાતી
@@ -331,6 +357,7 @@
                     🌸 English
                 </button>
             </div>
+
         </div>
 
         <!-- Gujarati Page -->
@@ -389,7 +416,8 @@
                     Asmākaṃ jīvanasya madhuraṃ kāvyam sā.
                 </p>
                 <div class="decorative-line"></div>
-                <p>This girl is the very incarnation of happiness (Sukhasya Mūrtiḥ),<br> and the arrival of good fortune.
+                <p>This girl is the very incarnation of happiness (Sukhasya Mūrtiḥ),<br> and the arrival of good
+                    fortune.
                     <br>Her divine gaze (Divyadṛṣṭiḥ) gives auspiciousness (Maṅgalam) every moment.<br>
                     She is the sweet poetry of our life.
                 </p>
@@ -398,10 +426,10 @@
                 <p>With love, from Jiya, Hriday,<br> Moti Mummy, Mota Papa,<br> Baa and Dada.</p>
                 <div class="decorative-line"></div>
                 <p>Some moments change the flow of time.<br>
-                Her arrival is the Singularity of infinite love,<br>
-                from where the new dimension<br> of our life has begun.<br>
-                She is the imperishable blessing<br> of Mother Lakshmi.<br>
-                A new ray of divinity in <br>the lives of Falguni and Gaurav is named <br><b>Daivi</b>.</p>
+                    Her arrival is the Singularity of infinite love,<br>
+                    from where the new dimension<br> of our life has begun.<br>
+                    She is the imperishable blessing<br> of Mother Lakshmi.<br>
+                    A new ray of divinity in <br>the lives of Falguni and Gaurav is named <br><b>Daivi</b>.</p>
                 <div class="decorative-line"></div>
                 <img src="Daivi3.jpg" alt="Daivi's pic">
                 <div class="decorative-line"></div>
@@ -411,6 +439,10 @@
             <button class="back-btn" onclick="showPage('selection')">⬅ Go Back</button>
         </div>
     </div>
+    <p id="github">
+        If you like the site, give me a ⭐
+        <a href="https://github.com/DevWithHarsh?tab=repositories" target="_blank">Star</a>on my Github profile
+    </p>
 
     <script>
         function createConfetti() {
@@ -440,18 +472,25 @@
 
         function showPage(pageName) {
             const pages = document.querySelectorAll('.page');
+            const githubPara = document.getElementById('github');
+
             pages.forEach(page => page.classList.remove('active'));
 
             if (pageName === 'gujarati') {
                 document.getElementById('gujarati-page').classList.add('active');
                 createConfetti();
+                githubPara.style.display = 'none';
             } else if (pageName === 'english') {
                 document.getElementById('english-page').classList.add('active');
                 createConfetti();
+                githubPara.style.display = 'none';
             } else if (pageName === 'selection') {
                 document.getElementById('selection-page').classList.add('active');
+                githubPara.style.display = 'block';
             }
         }
+
+
     </script>
 </body>
 
