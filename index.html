@@ -462,7 +462,10 @@
                     confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
 
                     document.body.appendChild(confetti);
-                    setTimeout(() => confetti.remove(), 3500);
+
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3500);
                 }, i * 30);
             }
         }
@@ -486,37 +489,26 @@
                 githubPara.style.display = 'block';
             }
         }
-
-        // ✅ define the github link
         const githubLink = document.querySelector('#github a');
+        const githubCounterDisplay = document.createElement('p');
+        githubCounterDisplay.style.marginTop = '8px';
+        githubCounterDisplay.style.fontSize = '0.9rem';
+        githubCounterDisplay.style.color = '#999';
+        document.getElementById('github').appendChild(githubCounterDisplay);
 
-        // ✅ only increment counter when link is clicked
-        githubLink.addEventListener('click', async () => {
-            try {
-                await fetch('https://evidenceofahigherdimension.vercel.app/api/github-counter', { method: 'POST' });
-                console.log('✅ Click recorded');
-            } catch (err) {
-                console.error('❌ Failed to record click:', err);
-            }
-        });
-
-        // ✅ show count in console ONLY when you visit with ?admin=true
         async function updateCounter() {
-            try {
-                const res = await fetch('https://evidenceofahigherdimension.vercel.app/api/github-counter');
-                const data = await res.json();
-                const params = new URLSearchParams(location.search);
-                if (params.get('admin') === 'true') {
-                    console.log(`⭐ Global Clicks: ${data.count}`);
-                }
-            } catch (err) {
-                console.error('Counter fetch failed:', err);
-            }
+            const res = await fetch('https://evidenceofahigherdimension.vercel.app/api/github-counter');
+            const data = await res.json();
+            console.log('⭐ Global Clicks:', data.count);
         }
+
+        githubLink.addEventListener('click', async () => {
+            await fetch('https://evidenceofahigherdimension.vercel.app/api/github-counter', { method: 'POST' });
+            updateCounter();
+        });
 
         updateCounter();
     </script>
-
 </body>
 
 </html>
